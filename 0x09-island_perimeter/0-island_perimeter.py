@@ -7,6 +7,9 @@ Island perimeter interview problem
 def island_perimeter(grid):
     """Return perimeter of the island
     described in grid"""
+    if not any(grid):
+        return 0
+
     visit = set()
 
     def dfs(i, j):
