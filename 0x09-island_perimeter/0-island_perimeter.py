@@ -7,7 +7,7 @@ Island perimeter interview problem
 def island_perimeter(grid):
     """Return perimeter of the island
     described in grid"""
-    if not any(grid):
+    if all(all(cell == 0 for cell in row) for row in grid):
         return 0
 
     visit = set()
