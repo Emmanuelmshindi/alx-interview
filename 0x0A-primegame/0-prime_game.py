@@ -1,36 +1,36 @@
 #!/usr/bin/python3
-"""Prime game interview question"""
+"""Module with the prime game solution"""
+
+
 def isWinner(x, nums):
-    def isPrime(num):
-        if num < 2:
-            return False
-        for i in range(2, int(num ** 0.5) + 1):
-            if num % i == 0:
-                return False
-            return True
-
-    def winner(n):
-        if n == 1:
-            return "Ben"
-        elif n == 2:
-            return "Maria"
-        elif isPrime(n):
-            return "Maria"
-        else:
-            return "Ben"
-
-    maria_wins = 0
-    ben_wins = 0
-
-    for n in nums:
-        if winner(n) == "Maria":
-            maria_wins += 1
-        else:
-            ben_wins += 1
-
-    if maria_wins > ben_wins:
-        return "Maria"
-    if maria_wins < ben_wins:
-        return "Ben"
-    else:
+    """Function to dtermine winner"""
+    if x <= 0 or nums is None:
         return None
+
+    ben = 0
+    maria = 0
+
+    a = [1 for x in range(sorted(nums)[-1] + 1)]
+    a[0], a[1] = 0, 0
+    for i in range(2, len(a)):
+        rm_mul(a, i)
+
+    for i in nums:
+        if sum(a[0:i + 1]) % 2 == 0:
+            ben += 1
+        else:
+            maria += 1
+
+    if ben > maria:
+        return "Ben"
+    if maria > ben:
+        return "Maria"
+    return None
+
+def rm_mul(ls, x):
+    """Removes multiples"""
+    for i in range(2, len(ls)):
+        try:
+            ls[i * x] = 0
+        except (ValueError, IndexError):
+            break
